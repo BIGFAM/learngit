@@ -15,6 +15,7 @@ public function main(){
                     ':account' => $name
                 )
             );
+	    var23;
             $udata = $result;
             $udata['hash'] = md5(md5($pwd) . $result['salt']);
             if(!$result){
