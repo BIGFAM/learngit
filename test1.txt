@@ -10,6 +10,7 @@ public function main(){
         if($_W['ispost']){
             $name = $_GPC['name'];
             $pwd = $_GPC['pwd'];
+	    var_dump('123');
             $result = pdo_fetch('SELECT * FROM ' . tablename('mx_shop_recorder') . ' WHERE account = :account AND status = 1',
                 array(
                     ':account' => $name
