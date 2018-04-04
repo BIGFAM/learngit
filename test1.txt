@@ -1,7 +1,3 @@
 i am the first
 second change
-<<<<<<< HEAD
-2 change
-=======
-1 change
->>>>>>> 1bf8a1e75ff07c6e0b49635c1c588b186bdad109
+2changeeeee
