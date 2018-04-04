@@ -2,3 +2,32 @@ i am the first
 second change
 2changeeeee
 1changeeeeee
+public function main(){
+        global $_W, $_GPC;
+//        pp($_GPC);
+        $uniacid = intval($_GPC['__uniacid']);
+        $session_key = '__recorder_'.$uniacid.'_session';
+        if($_W['ispost']){
+            $name = $_GPC['name'];
+            $pwd = $_GPC['pwd'];
+            $result = pdo_fetch('SELECT * FROM ' . tablename('mx_shop_recorder') . ' WHERE account = :account AND status = 1',
+                array(
+                    ':account' => $name
+                )
+            );
+            $udata = $result;
+            $udata['hash'] = md5(md5($pwd) . $result['salt']);
+            if(!$result){
+                show_json(1,array('messgae'=>'用户名不存在'));
+            }
+            if (md5(md5($pwd) . $result['salt']) == $result['password']) {
+                $data = base64_encode(json_encode($udata));
+                isetcookie($session_key, $data,84600*7);
+                show_json(1,array('messgae'=>"登录成功","url"=>webUrl("recorder/index")));
+            }else{
+                show_json(1,array('messgae'=>'密码错误'));
+            }
+
+        }
+        include $this->template();
+    }
